@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Makina me qira luksoze - Makina premium për shoferë të zgjuar. Merr me qira BMW, Mercedes, Porsche dhe më shumë.">
+    <meta name="keywords" content="makina luksoze me qira, qira makine premium, BMW me qira, Mercedes me qira, Porsche me qira">
+    <meta property="og:title" content="Makina Luksoze me Qira | Automjete Premium">
+    <meta property="og:description" content="Përjetoni makinat më të mira me shërbimin tonë premium të qirasë.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200">
+    <title data-i18n="siteTitle">Makina Luksoze me Qira | Automjete Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader-wrapper" id="loaderWrapper">
+        <div class="loader"><div class="loader-ring"></div><span class="loader-text">LUXURY</span></div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Kthehu lart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">◆</span>
+                <span class="logo-text">LUXE<span class="logo-accent">DRIVE</span></span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link active" data-i18n="navHome">Ballina</a></li>
+                <li><a href="fleet.html" class="nav-link" data-i18n="navFleet">Flota</a></li>
+                <li><a href="#why-us" class="nav-link" data-i18n="navAbout">Rreth Nesh</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="navContact">Kontakt</a></li>
+            
+                <button id="langToggle" class="lang-toggle" aria-label="Ndrysho gjuhën">🇬🇧 EN</button>
+</ul>
+                <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-bg" style="background-image: url('img/main.jpeg');"></div>
+        <div class="hero-content">
+            <span class="hero-badge" data-i18n="heroBadge">★ Flotë Premium 24/7</span>
+            <h1 class="hero-title" data-i18n data-i18n-html="heroTitle">Drejtoni <span class="text-gold">Ëndrrën</span><br>Përjetoni Luksin</h1>
+            <p class="hero-subtitle" data-i18n="heroSub">Automjete të jashtëzakonshme për udhëtime të paharrueshme. Nga sedanët ekzekutivë tek SUV-të fuqishëm – udha juaj perfekte ju pret.</p>
+            <div class="hero-buttons">
+                <a href="fleet.html" class="btn btn-primary" data-i18n="btnBrowse">
+                    Shiko Flotën
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+                <a href="fleet.html#booking" class="btn btn-outline" data-i18n="btnReserve">Rezervo Tani</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat"><span class="stat-number">150+</span><span class="stat-label" data-i18n="statVehicles">Automjete Premium</span></div>
+                <div class="hero-stat"><span class="stat-number">4.9</span><span class="stat-label" data-i18n="statRating">Vlerësim Klientësh</span></div>
+                <div class="hero-stat"><span class="stat-number">24/7</span><span class="stat-label" data-i18n="statService">Shërbim Concierge</span></div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span data-i18n="scrollText">Lëviz</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Featured Cars -->
+    <section class="featured section-padding" id="featured">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-i18n="sectionFeaturedTag">Përzgjedhja Jonë</span>
+                <h2 class="section-title" data-i18n data-i18n-html="sectionFeaturedTitle">Automjete <span class="text-gold">të Veçuara</span></h2>
+                <p class="section-desc" data-i18n="sectionFeaturedDesc">Automobila luksozë të përzgjedhur me dorë, gati për udhëtimin tuaj të radhës</p>
+            </div>
+            <div class="featured-grid">
+                <!-- BMW X5 -->
+                <div class="car-card" data-brand="bmw" data-category="suv" data-transmission="automatic" data-fuel="diesel" data-seats="5" data-price="85" data-available="true">
+                    <div class="car-card-image">
+                        <img src="img/x5/1.webp" alt="BMW X5 SUV Luksoz" loading="lazy">
+                        <span class="car-badge available" data-i18n="badgeAvailable">I Disponueshëm</span>
+                        <span class="car-category">SUV</span>
+                    </div>
+                    <div class="car-card-body">
+                        <div class="car-card-header"><h3>BMW X5</h3><span class="car-year">2024</span></div>
+                        <div class="car-specs">
+                            <span class="spec" data-i18n="specAutomatic">Automatik</span>
+                            <span class="spec" data-i18n="specDiesel">Diesel</span>
+                            <span class="spec">5 <span data-i18n="specSeats">Vende</span></span>
+                        </div>
+                        <div class="car-card-footer">
+                            <span class="car-price">€85<span class="price-period">/ditë</span></span>
+                            <a href="car-details.html?id=bmw-x5" class="btn btn-sm btn-gold" data-i18n="btnViewDetails">Shiko Detajet</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mercedes S-Class -->
+                <div class="car-card" data-brand="mercedes" data-category="sedan" data-transmission="automatic" data-fuel="petrol" data-seats="5" data-price="120" data-available="true">
+                    <div class="car-card-image">
+                        <img src="img/s-class/1.webp" alt="Mercedes-Benz S-Class Sedan Luksoz" loading="lazy">
+                        <span class="car-badge available" data-i18n="badgeAvailable">I Disponueshëm</span>
+                        <span class="car-category">Sedan</span>
+                    </div>
+                    <div class="car-card-body">
+                        <div class="car-card-header"><h3>Mercedes-Benz S-Class</h3><span class="car-year">2024</span></div>
+                        <div class="car-specs">
+                            <span class="spec" data-i18n="specAutomatic">Automatik</span>
+                            <span class="spec" data-i18n="specPetrol">Benzinë</span>
+                            <span class="spec">5 <span data-i18n="specSeats">Vende</span></span>
+                        </div>
+                        <div class="car-card-footer">
+                            <span class="car-price">€120<span class="price-period">/ditë</span></span>
+                            <a href="car-details.html?id=mercedes-s-class" class="btn btn-sm btn-gold" data-i18n="btnViewDetails">Shiko Detajet</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Porsche 911 -->
+                <div class="car-card" data-brand="porsche" data-category="sports" data-transmission="automatic" data-fuel="petrol" data-seats="2" data-price="195" data-available="true">
+                    <div class="car-card-image">
+                        <img src="img/porche911/1.webp" alt="Porsche 911 Makinë Sportive" loading="lazy">
+                        <span class="car-badge available" data-i18n="badgeAvailable">I Disponueshëm</span>
+                        <span class="car-category">Sportive</span>
+                    </div>
+                    <div class="car-card-body">
+                        <div class="car-card-header"><h3>Porsche 911</h3><span class="car-year">2024</span></div>
+                        <div class="car-specs">
+                            <span class="spec" data-i18n="specAutomatic">Automatik</span>
+                            <span class="spec" data-i18n="specPetrol">Benzinë</span>
+                            <span class="spec">2 <span data-i18n="specSeats">Vende</span></span>
+                        </div>
+                        <div class="car-card-footer">
+                            <span class="car-price">€195<span class="price-period">/ditë</span></span>
+                            <a href="car-details.html?id=porsche-911" class="btn btn-sm btn-gold" data-i18n="btnViewDetails">Shiko Detajet</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Range Rover Sport -->
+                <div class="car-card" data-brand="land-rover" data-category="suv" data-transmission="automatic" data-fuel="diesel" data-seats="7" data-price="150" data-available="true">
+                    <div class="car-card-image">
+                        <img src="img/rangerover/1.webp" alt="Range Rover Sport SUV" loading="lazy">
+                        <span class="car-badge available" data-i18n="badgeAvailable">I Disponueshëm</span>
+                        <span class="car-category">SUV</span>
+                    </div>
+                    <div class="car-card-body">
+                        <div class="car-card-header"><h3>Range Rover Sport</h3><span class="car-year">2024</span></div>
+                        <div class="car-specs">
+                            <span class="spec" data-i18n="specAutomatic">Automatik</span>
+                            <span class="spec" data-i18n="specDiesel">Diesel</span>
+                            <span class="spec">7 <span data-i18n="specSeats">Vende</span></span>
+                        </div>
+                        <div class="car-card-footer">
+                            <span class="car-price">€150<span class="price-period">/ditë</span></span>
+                            <a href="car-details.html?id=range-rover-sport" class="btn btn-sm btn-gold" data-i18n="btnViewDetails">Shiko Detajet</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-cta">
+                <a href="fleet.html" class="btn btn-primary" data-i18n="btnViewFullFleet">Shiko Flotën e Plotë</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us section-padding bg-dark" id="why-us">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-i18n="whyUsTag">Pse të Na Zgjidhni</span>
+                <h2 class="section-title" data-i18n data-i18n-html="whyUsTitle">Ndryshimi <span class="text-gold">LuxeDrive</span></h2>
+                <p class="section-desc" data-i18n="whyUsDesc">Ne ripërcaktojmë përvojën e marrjes me qira të makinave me cilësi të pakompromis</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    </div>
+                    <h3 data-i18n="featureFleetTitle">Flotë Premium</h3>
+                    <p data-i18n="featureFleetDesc">Çdo automjet mirëmbahet me përpikëri dhe është më pak se 2 vjeç, duke siguruar performancë dhe luks maksimal.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <h3 data-i18n="featureInsuranceTitle">Sigurim i Plotë</h3>
+                    <p data-i18n="featureInsuranceDesc">Mbulim gjithëpërfshirës i përfshirë me çdo qira. Udhëtoni me paqe të plotë mendore.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <h3 data-i18n="featureConciergeTitle">Concierge 24/7</h3>
+                    <p data-i18n="featureConciergeDesc">Asistencë personale gjatë gjithë orës. Jemi këtu kurdo që të keni nevojë, ditë apo natë.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"></rect><polygon points="23 7 16 12 23 17 23 7"></polygon></svg>
+                    </div>
+                    <h3 data-i18n="featureFlexibleTitle">Qira Fleksibël</h3>
+                    <p data-i18n="featureFlexibleDesc">Nga qira ditore në leasing afatgjatë. Plane të përshtatura për çdo nevojë tuajën.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rental Process -->
+    <section class="process section-padding" id="process">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-i18n="processTag">Si Funksionon</span>
+                <h2 class="section-title" data-i18n data-i18n-html="processTitle">Procesi i <span class="text-gold">Qirasë</span></h2>
+                <p class="section-desc" data-i18n="processDesc">Katër hapa të thjeshtë për të hipur pas timonit të makinës suaj të ëndrrave</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step1Title">Shfletoni & Zgjidhni</h3>
+                        <p data-i18n="step1Desc">Eksploroni flotën tonë të kuruar dhe zgjidhni automjetin e përsosur për udhëtimin tuaj.</p>
+                    </div>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step2Title">Rezervoni Online</h3>
+                        <p data-i18n="step2Desc">Rezervoni makinën tuaj në minuta me sistemin tonë të thjeshtëzuar të rezervimit.</p>
+                    </div>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step3Title">Merrni Makinën</h3>
+                        <p data-i18n="step3Desc">Tërhiqeni automjetin në vendndodhjen tuaj të zgjedhur ose kemi dërgesë tek ju.</p>
+                    </div>
+                    <div class="step-line"></div>
+                </div>
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step4Title">Shijoni Udhëtimin</h3>
+                        <p data-i18n="step4Desc">Përjetoni emocionin e drejtimit të një automobili të klasit botëror. Kthejeni kur të mbaroni.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section class="reviews section-padding bg-dark" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-i18n="reviewsTag">Dëshmi</span>
+                <h2 class="section-title" data-i18n data-i18n-html="reviewsTitle">Çfarë Thonë <span class="text-gold">Klientët</span></h2>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text" data-i18n="review1Text">"Shërbim i jashtëzakonshëm nga fillimi në fund. BMW X5 ishte i papërlyer dhe ecte si ëndërr. Do të marr sërish me qira."</p>
+                    <div class="review-author">
+                        <div class="review-avatar">JD</div>
+                        <div>
+                            <strong>James Donovan</strong>
+                            <span data-i18n="review1Role">Ekzekutiv Biznesi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text" data-i18n="review2Text">"Ekipi i concierge shkoi përtej pritshmërive. E dorëzuan Porsche në hotelin tim në orën 6 të mëngjesit. Shërbim me të vërtetë i klasit botëror."</p>
+                    <div class="review-author">
+                        <div class="review-avatar">SR</div>
+                        <div>
+                            <strong>Sarah Reynolds</strong>
+                            <span data-i18n="review2Role">Blogere Udhëtimesh</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text" data-i18n="review3Text">"Përvoja më e mirë e marrjes me qira të makinës që kam pasur ndonjëherë. Range Rover ishte i pastër dhe procesi i rezervimit ishte pa probleme."</p>
+                    <div class="review-author">
+                        <div class="review-avatar">MK</div>
+                        <div>
+                            <strong>Michael Kwan</strong>
+                            <span data-i18n="review3Role">Sipërmarrës</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Preview -->
+    <section class="faq-preview section-padding" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">FAQ</span>
+                <h2 class="section-title" data-i18n data-i18n-html="faqTitle">Pyetje të <span class="text-gold">Shpeshta</span></h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span data-i18n="faq1Q">Çfarë dokumentesh më duhen për të marrë një makinë me qira?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer"><p data-i18n="faq1A">Një patentë shoferi të vlefshme, pasaportë ose kartë identiteti, dhe një kartë krediti në emrin e shoferit. Vizitorët ndërkombëtarë mund të kenë nevojë për një Leje Ndërkombëtare Drejtimi.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span data-i18n="faq2Q">A përfshihet sigurimi në çmimin e qirasë?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer"><p data-i18n="faq2A">Po, sigurimi gjithëpërfshirës përfshihet me çdo qira. Opsione shtesë mbulimi janë në dispozicion gjatë përfundimit të rezervimit.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span data-i18n="faq3Q">A mund të ma dorëzoni makinën në vendndodhjen time?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer"><p data-i18n="faq3A">Sigurisht. Ne ofrojmë dërgesë falas brenda kufijve të qytetit dhe mund të organizojmë dërgesë në aeroporte, hotele ose rezidenca private.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta section-padding" id="contact">
+        <div class="container">
+            <div class="cta-card">
+                <h2 data-i18n="ctaTitle">Gati për të Drejtuar Ëndrrën?</h2>
+                <p data-i18n="ctaDesc">Rezervoni automjetin tuaj premium sot dhe përjetoni luksin në rrugë.</p>
+                <div class="cta-buttons">
+                    <a href="fleet.html" class="btn btn-primary" data-i18n="btnBrowse">Shiko Flotën</a>
+                    <a href="tel:+355123456789" class="btn btn-outline-white" data-i18n="btnCallUs">Na Telefononi</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo">
+                        <span class="logo-icon">◆</span>
+                        <span class="logo-text">LUXE<span class="logo-accent">DRIVE</span></span>
+                    </a>
+                    <p data-i18n="footerBrandDesc">Shërbim premium i marrjes me qira të makinave që ofron përzgjedhjen më të mirë të automjeteve luksoze për shoferët e zgjuar në të gjithë botën.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footerQuickLinks">Lidhje të Shpejta</h4>
+                    <ul>
+                        <li><a href="index.html" data-i18n="navHome">Ballina</a></li>
+                        <li><a href="fleet.html" data-i18n="navFleet">Flota Jonë</a></li>
+                        <li><a href="#why-us" data-i18n="navAbout">Rreth Nesh</a></li>
+                        <li><a href="#contact" data-i18n="navContact">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footerServices">Shërbime</h4>
+                    <ul>
+                        <li><a href="#" data-i18n="footerDailyRental">Qira Ditore</a></li>
+                        <li><a href="#" data-i18n="footerLeasing">Leasing Afatgjatë</a></li>
+                        <li><a href="#" data-i18n="footerAirport">Transfer Aeroporti</a></li>
+                        <li><a href="#" data-i18n="footerChauffeur">Shërbim Shoferi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 data-i18n="footerContactTitle">Kontakt</h4>
+                    <ul>
+                        <li>📍 123 Rruga e Luksit, Tiranë</li>
+                        <li>📞 +355 69 123 4567</li>
+                        <li>✉️ info@luxedrive.al</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 LuxeDrive. Të gjitha të drejtat e rezervuara.</p>
+                <div class="footer-legal">
+                    <a href="#" data-i18n="footerPrivacy">Politika e Privatësisë</a>
+                    <a href="#" data-i18n="footerTerms">Kushtet e Shërbimit</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="lang.js"></script>
+</body>
+</html>

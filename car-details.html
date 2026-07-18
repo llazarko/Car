@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shikoni detajet dhe rezervoni këtë makinë luksoze.">
+    <title data-i18n="detailsTitle">Detajet e Makinës | LuxeDrive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+   
+</head>
+<body>
+    <div class="loader-wrapper" id="loaderWrapper">
+        <div class="loader"><div class="loader-ring"></div><span class="loader-text">LUXURY</span></div>
+    </div>
+    
+    <button class="back-to-top" id="backToTop" aria-label="Kthehu lart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">◆</span><span class="logo-text">LUXE<span class="logo-accent">DRIVE</span></span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link" data-i18n="navHome">Ballina</a></li>
+                <li><a href="fleet.html" class="nav-link" data-i18n="navFleet">Flota</a></li>
+                <li><a href="index.html#why-us" class="nav-link" data-i18n="navAbout">Rreth Nesh</a></li>
+                <li><a href="index.html#contact" class="nav-link" data-i18n="navContact">Kontakt</a></li>
+            
+            <div class="nav-actions">
+                <button id="langToggle" class="lang-toggle" aria-label="Ndrysho gjuhën">🇬🇧 EN</button>
+					  </ul>
+                <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="car-details-page section-padding">
+        <div class="container">
+            
+            <!-- GALERIA -->
+            <div class="car-gallery-wrapper" id="carGalleryWrapper">
+                <div class="gallery-main-container">
+                    <div class="gallery-slides" id="gallerySlides"></div>
+                    <button class="gallery-nav prev" id="galleryPrev">‹</button>
+                    <button class="gallery-nav next" id="galleryNext">›</button>
+                    <button class="fullscreen-btn" id="fullscreenBtn">⛶</button>
+                    <div class="gallery-counter" id="galleryCounter">1 / 1</div>
+                    <div class="gallery-dots-container" id="galleryDots"></div>
+                </div>
+                <div class="gallery-thumbnails-bar" id="galleryThumbnails"></div>
+            </div>
+
+            <!-- FULLSCREEN MODAL -->
+            <div class="fullscreen-modal" id="fullscreenModal">
+                <button class="fullscreen-close" id="fullscreenClose">✕</button>
+                <img id="fullscreenImage" src="" alt="">
+            </div>
+
+            <!-- TË DHËNAT E MAKINAVE -->
+            <div id="car-bmw-x5" class="car-data"
+                data-name="BMW X5"
+                data-subtitle="2024 · Automatik · Diesel"
+                data-description="BMW X5 kombinon performancë të fuqishme me dizajn elegant."
+                data-price="85"
+                data-specs='{"Motori":"3.0L TwinPower Turbo","Kuaj-fuqi":"335 hp","Dyer":"5","Vende":"5"}'
+                data-equipment='["Kondicioner","Bluetooth","Apple CarPlay","Android Auto"]'
+                data-images='img/x5/1.webp,img/x5/2.webp,img/x5/3.webp,img/x5/4.webp,img/x5/5.webp,img/x5/6.webp'>
+            </div>
+
+            <div id="car-mercedes-s-class" class="car-data"
+                data-name="Mercedes-Benz S-Class"
+                data-subtitle="2024 · Automatik · Benzinë"
+                data-description="Kulmi i sedanëve luksozë."
+                data-price="120"
+                data-specs='{"Motori":"4.0L V8 Biturbo","Kuaj-fuqi":"496 hp","Dyer":"4","Vende":"5"}'
+                data-equipment='["Kondicioner","Burmester Sound","Apple CarPlay"]'
+                data-images='img/s-class/1.webp,img/s-class/2.webp,img/s-class/3.webp, img/s-class/4.webp'>
+            </div>
+
+            <div id="car-porsche-911" class="car-data"
+                data-name="Porsche 911"
+                data-subtitle="2024 · Automatik · Benzinë"
+                data-description="Makina sportive ikonë."
+                data-price="195"
+                data-specs='{"Motori":"3.0L Twin-Turbo Boxer 6","Kuaj-fuqi":"473 hp","Dyer":"2","Vende":"2"}'
+                data-equipment='["Sport Exhaust","Apple CarPlay","Cruise Control"]'
+                data-images='img/porche911/1.webp,img/porche911/2.webp,img/porche911/3.webp'>
+            </div>
+
+            <div id="car-range-rover-sport" class="car-data"
+                data-name="Range Rover Sport"
+                data-subtitle="2024 · Automatik · Diesel"
+                data-description="SUV luksoz me prani komanduese."
+                data-price="150"
+                data-specs='{"Motori":"3.0L Ingenium Diesel","Kuaj-fuqi":"350 hp","Dyer":"5","Vende":"7"}'
+                data-equipment='["Air Suspension","Meridian Sound","Apple CarPlay"]'
+                data-images='img/rangerover/1.webp,img/rangerover/2.webp,img/rangerover/3.webp'>
+            </div>
+
+            <div id="car-audi-a8" class="car-data"
+                data-name="Audi A8"
+                data-subtitle="2024 · Automatik · Hibrid"
+                data-description="Sedan luksoz me teknologji hibride."
+                data-price="110"
+                data-specs='{"Motori":"3.0 TFSI e","Kuaj-fuqi":"449 hp","Dyer":"4","Vende":"5"}'
+                data-equipment='["Virtual Cockpit","Bang & Olufsen","Apple CarPlay"]'
+                data-images='img/audia8/1.webp,img/audia8/2.webp,img/audia8/3.jpeg'>
+            </div>
+
+            <div id="car-rolls-royce-ghost" class="car-data"
+                data-name="Rolls-Royce Ghost"
+                data-subtitle="2024 · Automatik · Benzinë"
+                data-description="Kulmi absolut i luksit automobilistik."
+                data-price="450"
+                data-specs='{"Motori":"6.75L V12","Kuaj-fuqi":"563 hp","Dyer":"4","Vende":"4"}'
+                data-equipment='["Starlight Headliner","Bespoke Audio","Champagne Cooler"]'
+                data-images='img/rr/1.jpeg,img/rr/2.jpeg,img/rr/3.jpeg'>
+            </div>
+
+            <!-- INFORMACIONET E MAKINËS -->
+            <div class="car-info-grid">
+                <div class="car-info-left">
+                    <div class="car-title-block">
+                        <span class="car-badge available" id="availabilityBadge" data-i18n="badgeAvailable">I Disponueshëm</span>
+                        <h1 id="carTitle">BMW X5</h1>
+                        <p class="car-subtitle" id="carSubtitle">2024 · Automatik · Diesel</p>
+                    </div>
+                    <div class="car-description" id="carDescription"></div>
+                    <div class="specs-grid" id="specsGrid"></div>
+                    <div class="equipment-section">
+                        <h3 data-i18n="equipmentTitle">Pajisjet & Karakteristikat</h3>
+                        <ul class="equipment-list" id="equipmentList"></ul>
+                    </div>
+                </div>
+                <div class="car-info-right">
+                    <div class="booking-card" id="bookingCard">
+                        <div class="price-display">
+                            <span class="price-value" id="pricePerDay">€85</span>
+                            <span class="price-period" data-i18n="pricePerDayUnit">/ ditë</span>
+                        </div>
+                        <form id="bookingForm" novalidate>
+                            <div class="form-row">
+                                <input type="text" id="firstName" placeholder="Emri" required>
+                                <input type="text" id="lastName" placeholder="Mbiemri" required>
+                            </div>
+                            <div class="form-row">
+                                <input type="email" id="email" placeholder="Email" required>
+                                <input type="tel" id="phone" placeholder="Telefon" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Data e Marrjes</label>
+                                    <input type="date" id="pickupDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Data e Kthimit</label>
+                                    <input type="date" id="returnDate" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Ora e Marrjes</label>
+                                    <input type="time" id="pickupTime" value="10:00">
+                                </div>
+                                <div class="form-group">
+                                    <label>Ora e Kthimit</label>
+                                    <input type="time" id="returnTime" value="10:00">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Vendndodhja e Marrjes</label>
+                                <select id="pickupLocation">
+                                    <option>Zyra Qendrore - Tiranë</option>
+                                    <option>Aeroporti i Rinasit</option>
+                                    <option>Dorëzim në Hotel</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Vendndodhja e Dorëzimit</label>
+                                <select id="dropoffLocation">
+                                    <option>Zyra Qendrore - Tiranë</option>
+                                    <option>Aeroporti i Rinasit</option>
+                                    <option>Dorëzim në Hotel</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Kërkesa të Veçanta</label>
+                                <textarea id="specialRequests" rows="2"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Kodi i Kuponit</label>
+                                <input type="text" id="couponCode" placeholder="Fut kodin">
+                            </div>
+                            <div class="extras-section">
+                                <h4>Shtesa</h4>
+                                <label class="extra-item"><input type="checkbox" id="gps" data-price="15"> GPS (€15/ditë)</label>
+                                <label class="extra-item"><input type="checkbox" id="childSeat" data-price="10"> Karrige Fëmijësh (€10/ditë)</label>
+                                <label class="extra-item"><input type="checkbox" id="additionalDriver" data-price="25"> Shofer Shtesë (€25/ditë)</label>
+                                <label class="extra-item"><input type="checkbox" id="insurance" data-price="30"> Sigurim i Plotë (€30/ditë)</label>
+                            </div>
+                            <div class="booking-summary" id="bookingSummary">
+                                <div class="summary-line"><span>Ditë qiraje:</span><span id="summaryDays">0</span></div>
+                                <div class="summary-line"><span>Çmimi bazë:</span><span id="summaryBase">€0</span></div>
+                                <div class="summary-line"><span>Shtesa:</span><span id="summaryExtras">€0</span></div>
+                                <div class="summary-line"><span>Zbritje:</span><span id="summaryDiscount">-€0</span></div>
+                                <div class="summary-line"><span>TVSH (20%):</span><span id="summaryTax">€0</span></div>
+                                <div class="summary-line total"><span>Totali:</span><span id="summaryTotal">€0</span></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Konfirmo Rezervimin</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL KONFIRMIMI -->
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeModal">&times;</span>
+            <div class="modal-icon">✓</div>
+            <h2>Rezervimi u Konfirmua!</h2>
+            <p>Faleminderit për rezervimin tuaj.</p>
+            <p>Numri i referencës: <strong id="bookingRef">LX-123456</strong></p>
+            <a href="index.html" class="btn btn-primary">Kthehu në Ballinë</a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="main.js"></script>
+    <script src="lang.js"></script>
+    
+    <!-- Skripti i galerisë dhe ngarkuesit të makinës - të kombinuara -->
+    <script>
+    // ========== GALERIA ==========
+    let galleryCurrentIndex = 0;
+    let galleryTotalSlides = 0;
+    let galleryImages = [];
+    let galleryAutoPlay;
+
+    function initGallery(images) {
+        galleryImages = images;
+        galleryTotalSlides = images.length;
+        galleryCurrentIndex = 0;
+        
+        const slidesContainer = document.getElementById('gallerySlides');
+        const dotsContainer = document.getElementById('galleryDots');
+        const thumbnailsContainer = document.getElementById('galleryThumbnails');
+        
+        // Pastro container-at
+        slidesContainer.innerHTML = '';
+        dotsContainer.innerHTML = '';
+        thumbnailsContainer.innerHTML = '';
+        
+        // Shto TË GJITHA imazhet në slides
+        images.forEach((src, index) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Foto ' + (index + 1);
+            img.loading = index === 0 ? 'eager' : 'lazy';
+            slidesContainer.appendChild(img);
+        });
+        
+        // Krijo dots për TË GJITHA imazhet
+        images.forEach((_, index) => {
+            const dot = document.createElement('span');
+            dot.className = 'gallery-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', function() {
+                goToSlide(index);
+            });
+            dotsContainer.appendChild(dot);
+        });
+        
+        // Krijo thumbnails për TË GJITHA imazhet
+        images.forEach((src, index) => {
+            const thumb = document.createElement('img');
+            thumb.src = src;
+            thumb.className = 'gallery-thumb';
+            thumb.alt = 'Thumb ' + (index + 1);
+            if (index === 0) thumb.classList.add('active');
+            thumb.addEventListener('click', function() {
+                goToSlide(index);
+            });
+            thumbnailsContainer.appendChild(thumb);
+        });
+        
+        // Përditëso numëruesin
+        updateCounter();
+        
+        // Fillo auto-play
+        startAutoPlay();
+    }
+
+    function goToSlide(index) {
+        if (index < 0) index = galleryTotalSlides - 1;
+        if (index >= galleryTotalSlides) index = 0;
+        
+        galleryCurrentIndex = index;
+        
+        // Lëviz galerinë
+        const slidesContainer = document.getElementById('gallerySlides');
+        slidesContainer.style.transform = 'translateX(-' + (galleryCurrentIndex * 100) + '%)';
+        
+        // Përditëso TË GJITHA dots
+        const dots = document.querySelectorAll('.gallery-dot');
+        dots.forEach((dot, i) => {
+            if (i === galleryCurrentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+        
+        // Përditëso TË GJITHA thumbnails
+        const thumbs = document.querySelectorAll('.gallery-thumb');
+        thumbs.forEach((thumb, i) => {
+            if (i === galleryCurrentIndex) {
+                thumb.classList.add('active');
+                // Lëviz thumbnail-in aktiv në pamje
+                thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else {
+                thumb.classList.remove('active');
+            }
+        });
+        
+        // Përditëso numëruesin
+        updateCounter();
+        
+        // Rifillo auto-play
+        resetAutoPlay();
+    }
+
+    function nextSlide() {
+        goToSlide(galleryCurrentIndex + 1);
+    }
+
+    function prevSlide() {
+        goToSlide(galleryCurrentIndex - 1);
+    }
+
+    function updateCounter() {
+        const counter = document.getElementById('galleryCounter');
+        if (counter && galleryTotalSlides > 0) {
+            counter.textContent = (galleryCurrentIndex + 1) + ' / ' + galleryTotalSlides;
+        }
+    }
+
+    function startAutoPlay() {
+        stopAutoPlay();
+        if (galleryTotalSlides > 1) {
+            galleryAutoPlay = setInterval(nextSlide, 4000);
+        }
+    }
+
+    function stopAutoPlay() {
+        if (galleryAutoPlay) {
+            clearInterval(galleryAutoPlay);
+            galleryAutoPlay = null;
+        }
+    }
+
+    function resetAutoPlay() {
+        stopAutoPlay();
+        startAutoPlay();
+    }
+
+    // ========== NGARKUESI I MAKINËS ==========
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const carId = urlParams.get('id') || 'bmw-x5';
+        
+        console.log('Duke ngarkuar makinën:', carId);
+        
+        const carDiv = document.getElementById('car-' + carId);
+        
+        if (carDiv) {
+            console.log('Div-i i makinës u gjet');
+            
+            const name = carDiv.getAttribute('data-name');
+            const subtitle = carDiv.getAttribute('data-subtitle');
+            const description = carDiv.getAttribute('data-description');
+            const price = carDiv.getAttribute('data-price');
+            const specsStr = carDiv.getAttribute('data-specs');
+            const equipmentStr = carDiv.getAttribute('data-equipment');
+            const imagesStr = carDiv.getAttribute('data-images');
+            
+            console.log('Images string:', imagesStr);
+            
+            // Përditëso titullin dhe përshkrimin
+            document.getElementById('carTitle').textContent = name;
+            document.getElementById('carSubtitle').textContent = subtitle;
+            document.getElementById('carDescription').innerHTML = '<p>' + description + '</p>';
+            document.getElementById('pricePerDay').textContent = '€' + price;
+            
+            // Përditëso specifikimet
+            if (specsStr) {
+                const specs = JSON.parse(specsStr);
+                const specsGrid = document.getElementById('specsGrid');
+                specsGrid.innerHTML = '';
+                for (const [key, value] of Object.entries(specs)) {
+                    const specItem = document.createElement('div');
+                    specItem.className = 'spec-item';
+                    specItem.innerHTML = '<span>' + key + '</span><strong>' + value + '</strong>';
+                    specsGrid.appendChild(specItem);
+                }
+            }
+            
+            // Përditëso pajisjet
+            if (equipmentStr) {
+                const equipment = JSON.parse(equipmentStr);
+                const equipmentList = document.getElementById('equipmentList');
+                equipmentList.innerHTML = '';
+                equipment.forEach(function(item) {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    equipmentList.appendChild(li);
+                });
+            }
+            
+            // Përditëso galerinë me TË GJITHA imazhet
+            if (imagesStr) {
+                // Ndaj string-un me presje dhe pastro hapësirat
+                const images = imagesStr.split(',').map(function(img) {
+                    return img.trim();
+                }).filter(function(img) {
+                    return img.length > 0;
+                });
+                
+                console.log('Numri i imazheve të gjetura:', images.length);
+                console.log('Imazhet:', images);
+                
+                if (images.length > 0) {
+                    initGallery(images);
+                }
+            }
+        } else {
+            console.warn('Makina nuk u gjet:', carId);
+            // Shfaq të dhënat default (makina e parë)
+            const firstCar = document.querySelector('.car-data');
+            if (firstCar) {
+                console.log('Duke përdorur makinën e parë si default');
+                const imagesStr = firstCar.getAttribute('data-images');
+                if (imagesStr) {
+                    const images = imagesStr.split(',').map(function(img) {
+                        return img.trim();
+                    }).filter(function(img) {
+                        return img.length > 0;
+                    });
+                    if (images.length > 0) {
+                        initGallery(images);
+                    }
+                }
+            }
+        }
+        
+        // Event listeners për butonat e galerisë
+        document.getElementById('galleryPrev').addEventListener('click', function(e) {
+            e.preventDefault();
+            prevSlide();
+        });
+        
+        document.getElementById('galleryNext').addEventListener('click', function(e) {
+            e.preventDefault();
+            nextSlide();
+        });
+        
+        // Fullscreen
+        document.getElementById('fullscreenBtn').addEventListener('click', function() {
+            if (galleryImages.length > 0 && galleryImages[galleryCurrentIndex]) {
+                document.getElementById('fullscreenImage').src = galleryImages[galleryCurrentIndex];
+                document.getElementById('fullscreenModal').classList.add('active');
+            }
+        });
+        
+        document.getElementById('fullscreenClose').addEventListener('click', function() {
+            document.getElementById('fullscreenModal').classList.remove('active');
+        });
+        
+        // Mbyll fullscreen kur klikon jashtë imazhit
+        document.getElementById('fullscreenModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+        
+        // Swipe për galeri
+        const slidesContainer = document.getElementById('gallerySlides');
+        let startX = 0;
+        let isSwiping = false;
+        
+        slidesContainer.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+            isSwiping = true;
+            stopAutoPlay();
+        });
+        
+        slidesContainer.addEventListener('touchmove', function(e) {
+            if (!isSwiping) return;
+        });
+        
+        slidesContainer.addEventListener('touchend', function(e) {
+            if (!isSwiping) return;
+            isSwiping = false;
+            
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+            
+            startAutoPlay();
+        });
+        
+        // Ndalo auto-play kur mouse është mbi galeri
+        const galleryWrapper = document.getElementById('carGalleryWrapper');
+        galleryWrapper.addEventListener('mouseenter', function() {
+            stopAutoPlay();
+        });
+        
+        galleryWrapper.addEventListener('mouseleave', function() {
+            startAutoPlay();
+        });
+        
+        // Navigim me tastierë
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                nextSlide();
+            }
+        });
+    });
+</script>
+    
+    <script src="booking.js"></script>
+</body>
+</html>
