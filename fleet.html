@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shfletoni flotën tonë të plotë të makinave luksoze me qira.">
+    <title>Flota Jonë | LuxeDrive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Stilet shtesë për fleet */
+        .fleet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .filters-bar { background: #1a1a1a; border: 1px solid #333; padding: 20px; border-radius: 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 50px; }
+        .filter-group { position: relative; min-width: 150px; flex: 1; }
+        .filter-input, .filter-select { width: 100%; background: #0a0a0a; border: 1px solid #333; color: #fff; padding: 12px 15px; border-radius: 10px; font-size: 14px; appearance: none; }
+        .filter-select { background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23c9a96e' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+        .filter-input:focus, .filter-select:focus { outline: none; border-color: #c9a96e; }
+        .price-range { display: flex; flex-direction: column; gap: 6px; color: #a0a0a0; }
+        #priceRange { accent-color: #c9a96e; }
+        #priceValue { color: #c9a96e; font-weight: 600; }
+        .filter-toggle-btn { background: transparent; border: 1px solid #c9a96e; color: #c9a96e; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-size: 14px; white-space: nowrap; transition: all 0.3s; }
+        .filter-toggle-btn:hover { background: #c9a96e; color: #000; }
+        .filter-expanded { display: none; flex-wrap: wrap; gap: 12px; width: 100%; padding-top: 15px; }
+        .filter-expanded.active { display: flex; }
+        .filter-search-row { display: flex; gap: 12px; align-items: center; width: 100%; }
+        .btn-reset { background: transparent; border: 1px solid #c9a96e; color: #c9a96e; padding: 12px 22px; border-radius: 10px; cursor: pointer; font-size: 14px; white-space: nowrap; transition: all 0.3s; }
+        .btn-reset:hover { background: #c9a96e; color: #000; }
+        .no-results { text-align: center; padding: 50px; color: #a0a0a0; font-size: 18px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="loader-wrapper" id="loaderWrapper">
+        <div class="loader"><div class="loader-ring"></div><span class="loader-text">LUXURY</span></div>
+    </div>
+
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">◆</span><span class="logo-text">LUXE<span class="logo-accent">DRIVE</span></span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">Ballina</a></li>
+                <li><a href="fleet.html" class="nav-link active">Flota</a></li>
+                <li><a href="index.html#why-us" class="nav-link">Rreth Nesh</a></li>
+                <li><a href="index.html#contact" class="nav-link">Kontakt</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="langToggle" class="lang-toggle">EN</button>
+                <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="section-padding" style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Koleksioni Jonë</span>
+                <h1 class="section-title">Flota e <span class="text-gold">Plotë</span></h1>
+                <p class="section-desc">Çdo automjet mirëmbahet sipas standardeve më të larta</p>
+            </div>
+
+            <div class="filters-bar" id="filtersBar">
+                <div class="filter-search-row">
+                    <div class="filter-group" style="flex: 2;">
+                        <input type="text" id="searchInput" placeholder="Kërko sipas emrit..." class="filter-input">
+                    </div>
+                    <button class="filter-toggle-btn" id="filterToggleBtn">Filtrat e Avancuar ▼</button>
+                </div>
+                <div class="filter-expanded" id="filterExpanded">
+                    <div class="filter-group">
+                        <select id="brandFilter" class="filter-select">
+                            <option value="">Të gjitha Markat</option>
+                            <option value="bmw">BMW</option>
+                            <option value="mercedes">Mercedes-Benz</option>
+                            <option value="porsche">Porsche</option>
+                            <option value="land-rover">Land Rover</option>
+                            <option value="audi">Audi</option>
+                            <option value="rolls-royce">Rolls-Royce</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="">Të gjitha Kategoritë</option>
+                            <option value="sedan">Sedan</option>
+                            <option value="suv">SUV</option>
+                            <option value="sports">Sportive</option>
+                            <option value="luxury">Luksoze</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="transmissionFilter" class="filter-select">
+                            <option value="">Transmisioni</option>
+                            <option value="automatic">Automatik</option>
+                            <option value="manual">Manual</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="fuelFilter" class="filter-select">
+                            <option value="">Karburanti</option>
+                            <option value="petrol">Benzinë</option>
+                            <option value="diesel">Diesel</option>
+                            <option value="hybrid">Hibrid</option>
+                            <option value="electric">Elektrik</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="seatsFilter" class="filter-select">
+                            <option value="">Vendet</option>
+                            <option value="2">2</option>
+                            <option value="5">5</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                    <div class="filter-group price-range">
+                        <label>Çmimi Maksimal: €<span id="priceValue">500</span>/ditë</label>
+                        <input type="range" id="priceRange" min="50" max="500" value="500" step="10">
+                    </div>
+                    <div class="filter-group">
+                        <select id="availabilityFilter" class="filter-select">
+                            <option value="">Disponueshmëria</option>
+                            <option value="true">Të Disponueshme Tani</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="sortFilter" class="filter-select" style="border-color: #c9a96e; color: #c9a96e;">
+                            <option value="default">Rendit: Parazgjedhur</option>
+                            <option value="price-asc">Çmimi më i Ulët</option>
+                            <option value="price-desc">Çmimi më i Lartë</option>
+                            <option value="newest">Më të Rejat</option>
+                            <option value="popular">Të Popullarizuara</option>
+                        </select>
+                    </div>
+                    <button id="resetFilters" class="btn-reset">Rivendos Filtrat</button>
+                </div>
+            </div>
+
+            <div class="fleet-grid" id="fleetGrid">
+                <div class="car-card" data-brand="bmw" data-category="suv" data-transmission="automatic" data-fuel="diesel" data-seats="5" data-price="85" data-available="true" data-year="2024" data-popular="true" data-name="BMW X5">
+                    <div class="car-card-image">
+                        <img src="img/x5/1.webp" alt="BMW X5">
+                        <span class="car-badge available">I Disponueshëm</span>
+                        <span class="car-category">SUV</span>
+                    </div>
+                    <div class="car-card-body">
+                        <div class="car-card-header"><h3>BMW X5</h3><span class="car-year">2024</span></div>
+                        <div class="car-specs"><span class="spec">Automatik</span><span class="spec">Diesel</span><span class="spec">5 Vende</span></div>
+                        <div class="car-card-footer">
+                            <span class="car-price">€85<span class="price-period">/ditë</span></span>
+                            <a href="car-details.html?id=bmw-x5" class="btn btn-sm btn-gold">Shiko Detajet</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-card" data-brand="mercedes" data-category="sedan" data-transmission="automatic" data-fuel="petrol" data-seats="5" data-price="120" data-available="true" data-year="2024" data-popular="true" data-name="Mercedes-Benz S-Class">
+                    <div class="car-card-image">
+                        <img src="img/s-class/1.webp" alt="Mercedes S-Class">
+                        <span class="car-badge available">I Disponueshëm</span>
+                        <span class="car-category">Sedan</span>
+                    </div>
+                    <div class="car-card-body">
+                        <div class="car-card-header"><h3>Mercedes-Benz S-Class</h3><span class="car-year">2024</span></div>
+                        <div class="car-specs"><span class="spec">Automatik</span><span class="spec">Benzinë</span><span class="spec">5 Vende</span></div>
+                        <div class="car-card-footer">
+                            <span class="car-price">€120<span class="price-period">/ditë</span></span>
+                            <a href="car-details.html?id=mercedes-s-class" class="btn btn-sm btn-gold">Shiko Detajet</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-card" data-brand="porsche" data-category="sports" data-transmission="automatic" data-fuel="petrol" data-seats="2" data-price="195" data-available="true" data-year="2024" data-popular="true" data-name="Porsche 911">
+                    <div class="car-card-image">
+                        <img src="img/porche911/1.webp" alt="Porsche 911">
+                        <span class="car-badge available">I Disponueshëm</span>
+                        <span class="car-category">Sportive</span>
+                    </div>
+                    <div class="car-card-body">
+                        <div class="car-card-header"><h3>Porsche 911</h3><span class="car-year">2024</span></div>
+                        <div class="car-specs"><span class="spec">Automatik</span><span class="spec">Benzinë</span><span class="spec">2 Vende</span></div>
+                        <div class="car-card-footer">
+                            <span class="car-price">€195<span class="price-period">/ditë</span></span>
+                            <a href="car-details.html?id=porsche-911" class="btn btn-sm btn-gold">Shiko Detajet</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-card" data-brand="land-rover" data-category="suv" data-transmission="automatic" data-fuel="diesel" data-seats="7" data-price="150" data-available="true" data-year="2024" data-popular="true" data-name="Range Rover Sport">
+                    <div class="car-card-image">
+                        <img src="img/rangerover/1.webp" alt="Range Rover Sport">
+                        <span class="car-badge available">I Disponueshëm</span>
+                        <span class="car-category">SUV</span>
+                    </div>
+                    <div class="car-card-body">
+                        <div class="car-card-header"><h3>Range Rover Sport</h3><span class="car-year">2024</span></div>
+                        <div class="car-specs"><span class="spec">Automatik</span><span class="spec">Diesel</span><span class="spec">7 Vende</span></div>
+                        <div class="car-card-footer">
+                            <span class="car-price">€150<span class="price-period">/ditë</span></span>
+                            <a href="car-details.html?id=range-rover-sport" class="btn btn-sm btn-gold">Shiko Detajet</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-card" data-brand="audi" data-category="sedan" data-transmission="automatic" data-fuel="hybrid" data-seats="5" data-price="110" data-available="true" data-year="2024" data-popular="false" data-name="Audi A8">
+                    <div class="car-card-image">
+                        <img src="img/audia8/1.webp" alt="Audi A8">
+                        <span class="car-badge available">I Disponueshëm</span>
+                        <span class="car-category">Sedan</span>
+                    </div>
+                    <div class="car-card-body">
+                        <div class="car-card-header"><h3>Audi A8</h3><span class="car-year">2024</span></div>
+                        <div class="car-specs"><span class="spec">Automatik</span><span class="spec">Hibrid</span><span class="spec">5 Vende</span></div>
+                        <div class="car-card-footer">
+                            <span class="car-price">€110<span class="price-period">/ditë</span></span>
+                            <a href="car-details.html?id=audi-a8" class="btn btn-sm btn-gold">Shiko Detajet</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-card" data-brand="rolls-royce" data-category="luxury" data-transmission="automatic" data-fuel="petrol" data-seats="4" data-price="450" data-available="true" data-year="2024" data-popular="false" data-name="Rolls-Royce Ghost">
+                    <div class="car-card-image">
+                        <img src="img/rr/1.jpeg" alt="Rolls-Royce Ghost">
+                        <span class="car-badge available">I Disponueshëm</span>
+                        <span class="car-category">Luksoze</span>
+                    </div>
+                    <div class="car-card-body">
+                        <div class="car-card-header"><h3>Rolls-Royce Ghost</h3><span class="car-year">2024</span></div>
+                        <div class="car-specs"><span class="spec">Automatik</span><span class="spec">Benzinë</span><span class="spec">4 Vende</span></div>
+                        <div class="car-card-footer">
+                            <span class="car-price">€450<span class="price-period">/ditë</span></span>
+                            <a href="car-details.html?id=rolls-royce-ghost" class="btn btn-sm btn-gold">Shiko Detajet</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-results" id="noResults">Nuk ka automjete që përputhen me filtrat.</div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo"><span class="logo-icon">◆</span><span class="logo-text">LUXE<span class="logo-accent">DRIVE</span></span></a>
+                    <p>Shërbim premium i marrjes me qira të makinave.</p>
+                </div>
+                <div class="footer-links"><h4>Lidhje të Shpejta</h4><ul><li><a href="index.html">Ballina</a></li><li><a href="fleet.html">Flota Jonë</a></li></ul></div>
+                <div class="footer-links"><h4>Shërbime</h4><ul><li><a href="#">Qira Ditore</a></li><li><a href="#">Leasing Afatgjatë</a></li></ul></div>
+                <div class="footer-contact"><h4>Kontakt</h4><ul><li>📍 Tiranë</li><li>📞 +355 69 123 4567</li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>© 2024 LuxeDrive.</p></div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Filter toggle
+        document.getElementById('filterToggleBtn').addEventListener('click', function() {
+            document.getElementById('filterExpanded').classList.toggle('active');
+            this.textContent = document.getElementById('filterExpanded').classList.contains('active') ? 'Fshih Filtrat ▲' : 'Filtrat e Avancuar ▼';
+        });
+
+        // Fleet filter logic
+        (function() {
+            const cards = Array.from(document.querySelectorAll('#fleetGrid .car-card'));
+            const searchInput = document.getElementById('searchInput');
+            const brandFilter = document.getElementById('brandFilter');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const transmissionFilter = document.getElementById('transmissionFilter');
+            const fuelFilter = document.getElementById('fuelFilter');
+            const seatsFilter = document.getElementById('seatsFilter');
+            const priceRange = document.getElementById('priceRange');
+            const priceValue = document.getElementById('priceValue');
+            const availabilityFilter = document.getElementById('availabilityFilter');
+            const sortFilter = document.getElementById('sortFilter');
+            const resetBtn = document.getElementById('resetFilters');
+            const noResults = document.getElementById('noResults');
+            const fleetGrid = document.getElementById('fleetGrid');
+
+            function applyFilters() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const brand = brandFilter.value;
+                const category = categoryFilter.value;
+                const transmission = transmissionFilter.value;
+                const fuel = fuelFilter.value;
+                const seats = seatsFilter.value;
+                const maxPrice = parseInt(priceRange.value);
+                const available = availabilityFilter.value;
+                priceValue.textContent = maxPrice;
+                let visibleCount = 0;
+
+                cards.forEach(card => {
+                    const name = card.dataset.name.toLowerCase();
+                    let show = true;
+                    if (searchTerm && !name.includes(searchTerm)) show = false;
+                    if (brand && card.dataset.brand !== brand) show = false;
+                    if (category && card.dataset.category !== category) show = false;
+                    if (transmission && card.dataset.transmission !== transmission) show = false;
+                    if (fuel && card.dataset.fuel !== fuel) show = false;
+                    if (seats && card.dataset.seats !== seats) show = false;
+                    if (parseInt(card.dataset.price) > maxPrice) show = false;
+                    if (available === 'true' && card.dataset.available !== 'true') show = false;
+                    card.style.display = show ? '' : 'none';
+                    if (show) visibleCount++;
+                });
+                noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+                sortCards();
+            }
+
+            function sortCards() {
+                const sortBy = sortFilter.value;
+                const visible = Array.from(fleetGrid.children).filter(c => c.style.display !== 'none');
+                visible.sort((a, b) => {
+                    if (sortBy === 'price-asc') return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+                    if (sortBy === 'price-desc') return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+                    if (sortBy === 'newest') return parseInt(b.dataset.year) - parseInt(a.dataset.year);
+                    if (sortBy === 'popular') return (b.dataset.popular === 'true' ? 1 : 0) - (a.dataset.popular === 'true' ? 1 : 0);
+                    return 0;
+                });
+                visible.forEach(card => fleetGrid.appendChild(card));
+            }
+
+            [searchInput, brandFilter, categoryFilter, transmissionFilter, fuelFilter, seatsFilter, availabilityFilter].forEach(el => {
+                el.addEventListener('input', applyFilters);
+                el.addEventListener('change', applyFilters);
+            });
+            priceRange.addEventListener('input', applyFilters);
+            sortFilter.addEventListener('change', applyFilters);
+            resetBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                brandFilter.value = '';
+                categoryFilter.value = '';
+                transmissionFilter.value = '';
+                fuelFilter.value = '';
+                seatsFilter.value = '';
+                priceRange.value = 500;
+                priceValue.textContent = '500';
+                availabilityFilter.value = '';
+                sortFilter.value = 'default';
+                cards.forEach(card => card.style.display = '');
+                noResults.style.display = 'none';
+            });
+            applyFilters();
+        })();
+    </script>
+</body>
+</html>

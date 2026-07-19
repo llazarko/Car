@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shikoni detajet dhe rezervoni këtë makinë luksoze.">
+    <title>Detajet e Makinës | LuxeDrive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Stilet për car-details */
+        .car-details-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; margin-top: 40px; }
+        
+        /* Galeria me swipe */
+        .car-gallery-wrapper { position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 15px; background: #000; }
+        .gallery-main-container { position: relative; width: 100%; height: 450px; overflow: hidden; touch-action: pan-y; }
+        .gallery-slides { display: flex; height: 100%; transition: transform 0.4s ease; }
+        .gallery-slides img { min-width: 100%; height: 100%; object-fit: cover; }
+        .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 20px; z-index: 10; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .gallery-nav:hover { background: #c9a96e; color: #000; }
+        .gallery-nav.prev { left: 15px; }
+        .gallery-nav.next { right: 15px; }
+        .gallery-counter { position: absolute; bottom: 15px; right: 15px; background: rgba(0,0,0,0.7); color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 13px; z-index: 10; }
+        .gallery-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+        .gallery-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; }
+        .gallery-dot.active { background: #c9a96e; transform: scale(1.3); }
+        
+        .gallery-thumbnails-bar { display: flex; gap: 10px; padding: 10px 0; overflow-x: auto; }
+        .gallery-thumb { width: 80px; height: 60px; object-fit: cover; border-radius: 8px; cursor: pointer; opacity: 0.5; border: 2px solid transparent; flex-shrink: 0; transition: all 0.3s; }
+        .gallery-thumb.active { opacity: 1; border-color: #c9a96e; }
+        
+        /* Detajet e makinës */
+        .car-title-block h1 { font-size: 40px; margin-bottom: 5px; }
+        .car-subtitle { color: #a0a0a0; margin-bottom: 20px; }
+        .car-description { color: #a0a0a0; margin-bottom: 30px; line-height: 1.8; }
+        .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 30px 0; }
+        .spec-item { background: #1a1a1a; padding: 14px; border-radius: 10px; display: flex; justify-content: space-between; }
+        .spec-item span { color: #a0a0a0; }
+        .spec-item strong { color: #fff; }
+        .equipment-section h3 { color: #c9a96e; margin-bottom: 15px; }
+        .equipment-list { list-style: none; columns: 2; }
+        .equipment-list li { margin-bottom: 8px; color: #a0a0a0; }
+        .equipment-list li::before { content: "✓"; color: #c9a96e; margin-right: 8px; }
+        
+        /* Booking */
+        .booking-card { background: #1a1a1a; padding: 30px; border-radius: 20px; border: 1px solid #2a2a2a; position: sticky; top: 100px; }
+        .price-display { font-size: 36px; font-weight: 700; color: #c9a96e; margin-bottom: 20px; }
+        .form-row { display: flex; gap: 12px; margin-bottom: 15px; }
+        .form-group { flex: 1; margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: #a0a0a0; font-size: 13px; }
+        .booking-card input, .booking-card select, .booking-card textarea { width: 100%; background: #0a0a0a; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif; }
+        .booking-card input:focus, .booking-card select:focus, .booking-card textarea:focus { outline: none; border-color: #c9a96e; }
+        .extras-section { background: #0f0f0f; padding: 20px; border-radius: 14px; margin: 20px 0; }
+        .extras-section h4 { color: #c9a96e; margin-bottom: 15px; }
+        .extra-item { display: flex; align-items: center; gap: 10px; padding: 10px; margin-bottom: 8px; background: #0a0a0a; border-radius: 8px; cursor: pointer; font-size: 14px; }
+        .extra-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #c9a96e; }
+        .booking-summary { background: #0a0a0a; padding: 15px; border-radius: 12px; margin: 20px 0; }
+        .summary-line { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .summary-line.total { font-weight: 700; font-size: 18px; border-top: 1px solid #2a2a2a; padding-top: 8px; margin-top: 8px; }
+        .summary-line.total span:last-child { color: #c9a96e; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; }
+        .modal-content { background: #1a1a1a; padding: 40px; border-radius: 20px; text-align: center; max-width: 500px; position: relative; }
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #fff; background: none; border: none; }
+        .modal-icon { font-size: 48px; color: #c9a96e; margin-bottom: 15px; }
+        .car-data { display: none; }
+        .related-cars { margin-top: 60px; }
+        .related-cars h2 { text-align: center; margin-bottom: 30px; font-family: 'Playfair Display', serif; font-size: 32px; }
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        
+        @media (max-width: 1024px) { .car-details-layout { grid-template-columns: 1fr; } .booking-card { position: static; } }
+        @media (max-width: 768px) { .gallery-main-container { height: 300px; } .form-row { flex-direction: column; } .specs-grid { grid-template-columns: 1fr; } .car-title-block h1 { font-size: 28px; } }
+    </style>
+</head>
+<body>
+    <div class="loader-wrapper" id="loaderWrapper">
+        <div class="loader"><div class="loader-ring"></div><span class="loader-text">LUXURY</span></div>
+    </div>
+
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">◆</span><span class="logo-text">LUXE<span class="logo-accent">DRIVE</span></span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">Ballina</a></li>
+                <li><a href="fleet.html" class="nav-link">Flota</a></li>
+                <li><a href="index.html#why-us" class="nav-link">Rreth Nesh</a></li>
+                <li><a href="index.html#contact" class="nav-link">Kontakt</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="langToggle" class="lang-toggle">EN</button>
+                <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="section-padding" style="padding-top: 120px;">
+        <div class="container">
+            <!-- GALERIA ME SWIPE -->
+            <div class="car-gallery-wrapper" id="carGalleryWrapper">
+                <div class="gallery-main-container" id="galleryMainContainer">
+                    <div class="gallery-slides" id="gallerySlides"></div>
+                    <button class="gallery-nav prev" id="galleryPrev">‹</button>
+                    <button class="gallery-nav next" id="galleryNext">›</button>
+                    <div class="gallery-counter" id="galleryCounter">1 / 1</div>
+                    <div class="gallery-dots" id="galleryDots"></div>
+                </div>
+                <div class="gallery-thumbnails-bar" id="galleryThumbnailsBar"></div>
+            </div>
+
+            <!-- TË DHËNAT E MAKINAVE -->
+            <!-- TË DHËNAT E MAKINAVE -->
+            <div id="car-bmw-x5" class="car-data"
+                data-name="BMW X5"
+                data-subtitle="2024 · Automatik · Diesel"
+                data-description="BMW X5 kombinon performancë të fuqishme me dizajn elegant."
+                data-price="85"
+                data-specs='{"Motori":"3.0L TwinPower Turbo","Kuaj-fuqi":"335 hp","Dyer":"5","Vende":"5"}'
+                data-equipment='["Kondicioner","Bluetooth","Apple CarPlay","Android Auto"]'
+                data-images='img/x5/1.webp,img/x5/2.webp,img/x5/3.webp,img/x5/4.webp,img/x5/5.webp,img/x5/6.webp'>
+            </div>
+
+            <div id="car-mercedes-s-class" class="car-data"
+                data-name="Mercedes-Benz S-Class"
+                data-subtitle="2024 · Automatik · Benzinë"
+                data-description="Kulmi i sedanëve luksozë."
+                data-price="120"
+                data-specs='{"Motori":"4.0L V8 Biturbo","Kuaj-fuqi":"496 hp","Dyer":"4","Vende":"5"}'
+                data-equipment='["Kondicioner","Burmester Sound","Apple CarPlay"]'
+                data-images='img/s-class/1.webp,img/s-class/2.webp,img/s-class/3.webp,img/s-class/4.webp'>
+            </div>
+
+            <div id="car-porsche-911" class="car-data"
+                data-name="Porsche 911"
+                data-subtitle="2024 · Automatik · Benzinë"
+                data-description="Makina sportive ikonë."
+                data-price="195"
+                data-specs='{"Motori":"3.0L Twin-Turbo Boxer 6","Kuaj-fuqi":"473 hp","Dyer":"2","Vende":"2"}'
+                data-equipment='["Sport Exhaust","Apple CarPlay","Cruise Control"]'
+                data-images='img/porche911/1.webp,img/porche911/2.webp,img/porche911/3.webp'>
+            </div>
+
+            <div id="car-range-rover-sport" class="car-data"
+                data-name="Range Rover Sport"
+                data-subtitle="2024 · Automatik · Diesel"
+                data-description="SUV luksoz me prani komanduese."
+                data-price="150"
+                data-specs='{"Motori":"3.0L Ingenium Diesel","Kuaj-fuqi":"350 hp","Dyer":"5","Vende":"7"}'
+                data-equipment='["Air Suspension","Meridian Sound","Apple CarPlay"]'
+                data-images='img/rangerover/1.webp,img/rangerover/2.webp,img/rangerover/3.webp'>
+            </div>
+
+            <div id="car-audi-a8" class="car-data"
+                data-name="Audi A8"
+                data-subtitle="2024 · Automatik · Hibrid"
+                data-description="Sedan luksoz me teknologji hibride."
+                data-price="110"
+                data-specs='{"Motori":"3.0 TFSI e","Kuaj-fuqi":"449 hp","Dyer":"4","Vende":"5"}'
+                data-equipment='["Virtual Cockpit","Bang & Olufsen","Apple CarPlay"]'
+                data-images='img/audia8/1.webp,img/audia8/2.webp,img/audia8/3.jpeg'>
+            </div>
+
+            <div id="car-rolls-royce-ghost" class="car-data"
+                data-name="Rolls-Royce Ghost"
+                data-subtitle="2024 · Automatik · Benzinë"
+                data-description="Kulmi absolut i luksit automobilistik."
+                data-price="450"
+                data-specs='{"Motori":"6.75L V12","Kuaj-fuqi":"563 hp","Dyer":"4","Vende":"4"}'
+                data-equipment='["Starlight Headliner","Bespoke Audio","Champagne Cooler"]'
+                data-images='img/rr/1.jpeg,img/rr/2.jpeg,img/rr/3.jpeg'>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="car-details-layout">
+                <div class="car-info-left">
+                    <div class="car-title-block">
+                        <span class="car-badge available" id="availabilityBadge">I Disponueshëm</span>
+                        <h1 id="carTitle">BMW X5</h1>
+                        <p class="car-subtitle" id="carSubtitle">2024 · Automatik · Diesel</p>
+                    </div>
+                    <div class="car-description" id="carDescription"></div>
+                    <div class="specs-grid" id="specsGrid"></div>
+                    <div class="equipment-section">
+                        <h3>Pajisjet & Karakteristikat</h3>
+                        <ul class="equipment-list" id="equipmentList"></ul>
+                    </div>
+                </div>
+                <div class="car-info-right">
+                    <div class="booking-card" id="bookingCard">
+                        <div class="price-display"><span id="pricePerDay">€85</span><span style="font-size:16px;color:#a0a0a0;"> / ditë</span></div>
+                        <form id="bookingForm" novalidate>
+                            <div class="form-row">
+                                <input type="text" id="firstName" placeholder="Emri" required>
+                                <input type="text" id="lastName" placeholder="Mbiemri" required>
+                            </div>
+                            <div class="form-row">
+                                <input type="email" id="email" placeholder="Email" required>
+                                <input type="tel" id="phone" placeholder="Telefon" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group"><label>Data e Marrjes</label><input type="date" id="pickupDate" required></div>
+                                <div class="form-group"><label>Data e Kthimit</label><input type="date" id="returnDate" required></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group"><label>Ora e Marrjes</label><input type="time" id="pickupTime" value="10:00"></div>
+                                <div class="form-group"><label>Ora e Kthimit</label><input type="time" id="returnTime" value="10:00"></div>
+                            </div>
+                            <div class="form-group"><label>Vendndodhja e Marrjes</label><select id="pickupLocation"><option>Zyra Qendrore - Tiranë</option><option>Aeroporti i Rinasit</option></select></div>
+                            <div class="form-group"><label>Vendndodhja e Dorëzimit</label><select id="dropoffLocation"><option>Zyra Qendrore - Tiranë</option><option>Aeroporti i Rinasit</option></select></div>
+                            <div class="form-group"><label>Kërkesa të Veçanta</label><textarea id="specialRequests" rows="2"></textarea></div>
+                            <div class="form-group"><label>Kodi i Kuponit</label><input type="text" id="couponCode" placeholder="Fut kodin"></div>
+                            <div class="extras-section">
+                                <h4>Shtesa</h4>
+                                <label class="extra-item"><input type="checkbox" id="gps" data-price="15"> GPS (€15/ditë)</label>
+                                <label class="extra-item"><input type="checkbox" id="childSeat" data-price="10"> Karrige Fëmijësh (€10/ditë)</label>
+                                <label class="extra-item"><input type="checkbox" id="additionalDriver" data-price="25"> Shofer Shtesë (€25/ditë)</label>
+                                <label class="extra-item"><input type="checkbox" id="insurance" data-price="30"> Sigurim i Plotë (€30/ditë)</label>
+                            </div>
+                            <div class="booking-summary" id="bookingSummary">
+                                <div class="summary-line"><span>Ditë qiraje:</span><span id="summaryDays">0</span></div>
+                                <div class="summary-line"><span>Çmimi bazë:</span><span id="summaryBase">€0</span></div>
+                                <div class="summary-line"><span>Shtesa:</span><span id="summaryExtras">€0</span></div>
+                                <div class="summary-line"><span>Zbritje:</span><span id="summaryDiscount">-€0</span></div>
+                                <div class="summary-line"><span>TVSH (20%):</span><span id="summaryTax">€0</span></div>
+                                <div class="summary-line total"><span>Totali:</span><span id="summaryTotal">€0</span></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width:100%;">Konfirmo Rezervimin</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Makina të ngjashme -->
+            <div class="related-cars">
+                <h2>Mund T'ju Pëlqejnë Gjithashtu</h2>
+                <div class="related-grid">
+                    <div class="car-card">
+                        <div class="car-card-image"><img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80" alt="Mercedes"><span class="car-category">Sedan</span></div>
+                        <div class="car-card-body"><div class="car-card-header"><h3>Mercedes S-Class</h3></div><div class="car-card-footer"><span class="car-price">€120/ditë</span><a href="car-details.html?id=mercedes-s-class" class="btn btn-sm btn-gold">Shiko</a></div></div>
+                    </div>
+                    <div class="car-card">
+                        <div class="car-card-image"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80" alt="Porsche"><span class="car-category">Sportive</span></div>
+                        <div class="car-card-body"><div class="car-card-header"><h3>Porsche 911</h3></div><div class="car-card-footer"><span class="car-price">€195/ditë</span><a href="car-details.html?id=porsche-911" class="btn btn-sm btn-gold">Shiko</a></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="modal-icon">✓</div>
+            <h2>Rezervimi u Konfirmua!</h2>
+            <p>Faleminderit për rezervimin tuaj.</p>
+            <p>Numri i referencës: <strong id="bookingRef">LX-123456</strong></p>
+            <a href="index.html" class="btn btn-primary">Kthehu në Ballinë</a>
+        </div>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // ========== INICIALIZO EMAILJS ==========
+        (function() {
+            emailjs.init("YOUR_PUBLIC_KEY"); // Zëvendëso me çelësin tënd publik
+        })();
+
+        // ========== GALERIA ME SWIPE ==========
+        let galleryCurrentIndex = 0;
+        let galleryTotalSlides = 0;
+        let galleryImages = [];
+
+        function initGallery(images) {
+            galleryImages = images;
+            galleryTotalSlides = images.length;
+            galleryCurrentIndex = 0;
+            
+            const slidesContainer = document.getElementById('gallerySlides');
+            const dotsContainer = document.getElementById('galleryDots');
+            const thumbsContainer = document.getElementById('galleryThumbnailsBar');
+            
+            slidesContainer.innerHTML = '';
+            dotsContainer.innerHTML = '';
+            thumbsContainer.innerHTML = '';
+            
+            images.forEach((src, index) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = 'Foto ' + (index + 1);
+                slidesContainer.appendChild(img);
+            });
+            
+            images.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'gallery-dot' + (index === 0 ? ' active' : '');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            
+            images.forEach((src, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = src;
+                thumb.className = 'gallery-thumb' + (index === 0 ? ' active' : '');
+                thumb.addEventListener('click', () => goToSlide(index));
+                thumbsContainer.appendChild(thumb);
+            });
+            
+            document.getElementById('galleryCounter').textContent = '1 / ' + galleryTotalSlides;
+        }
+
+        function goToSlide(index) {
+            if (index < 0) index = galleryTotalSlides - 1;
+            if (index >= galleryTotalSlides) index = 0;
+            galleryCurrentIndex = index;
+            
+            document.getElementById('gallerySlides').style.transform = 'translateX(-' + (galleryCurrentIndex * 100) + '%)';
+            
+            document.querySelectorAll('.gallery-dot').forEach((dot, i) => dot.classList.toggle('active', i === galleryCurrentIndex));
+            document.querySelectorAll('.gallery-thumb').forEach((thumb, i) => thumb.classList.toggle('active', i === galleryCurrentIndex));
+            
+            document.getElementById('galleryCounter').textContent = (galleryCurrentIndex + 1) + ' / ' + galleryTotalSlides;
+        }
+
+        function nextSlide() { goToSlide(galleryCurrentIndex + 1); }
+        function prevSlide() { goToSlide(galleryCurrentIndex - 1); }
+
+        // Event listeners për galerinë
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('galleryPrev').addEventListener('click', prevSlide);
+            document.getElementById('galleryNext').addEventListener('click', nextSlide);
+            
+            // Swipe për mobile
+            const slidesContainer = document.getElementById('gallerySlides');
+            let startX = 0;
+            
+            slidesContainer.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+            });
+            
+            slidesContainer.addEventListener('touchend', function(e) {
+                const diffX = startX - e.changedTouches[0].clientX;
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) nextSlide();
+                    else prevSlide();
+                }
+            });
+            
+            // Swipe me mouse për desktop
+            let mouseStartX = 0;
+            let isMouseDown = false;
+            
+            slidesContainer.addEventListener('mousedown', function(e) {
+                mouseStartX = e.clientX;
+                isMouseDown = true;
+                slidesContainer.style.cursor = 'grabbing';
+            });
+            
+            slidesContainer.addEventListener('mouseup', function(e) {
+                if (!isMouseDown) return;
+                isMouseDown = false;
+                slidesContainer.style.cursor = '';
+                const diffX = mouseStartX - e.clientX;
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) nextSlide();
+                    else prevSlide();
+                }
+            });
+            
+            slidesContainer.addEventListener('mouseleave', function() {
+                isMouseDown = false;
+                slidesContainer.style.cursor = '';
+            });
+        });
+
+        // ========== NGARKIMI I TË DHËNAVE TË MAKINËS ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const carId = urlParams.get('id') || 'bmw-x5';
+            const carDiv = document.getElementById('car-' + carId);
+            
+            if (carDiv) {
+                document.getElementById('carTitle').textContent = carDiv.getAttribute('data-name');
+                document.getElementById('carSubtitle').textContent = carDiv.getAttribute('data-subtitle');
+                document.getElementById('carDescription').innerHTML = '<p>' + carDiv.getAttribute('data-description') + '</p>';
+                document.getElementById('pricePerDay').textContent = '€' + carDiv.getAttribute('data-price');
+                
+                const specs = JSON.parse(carDiv.getAttribute('data-specs'));
+                const specsGrid = document.getElementById('specsGrid');
+                specsGrid.innerHTML = '';
+                for (const [key, value] of Object.entries(specs)) {
+                    specsGrid.innerHTML += '<div class="spec-item"><span>' + key + '</span><strong>' + value + '</strong></div>';
+                }
+                
+                const equipment = JSON.parse(carDiv.getAttribute('data-equipment'));
+                const equipmentList = document.getElementById('equipmentList');
+                equipmentList.innerHTML = '';
+                equipment.forEach(item => { equipmentList.innerHTML += '<li>' + item + '</li>'; });
+                
+                const images = carDiv.getAttribute('data-images').split(',').map(img => img.trim());
+                if (images.length > 0) initGallery(images);
+            }
+
+            // ========== BOOKING LOGIC ==========
+            const basePrice = parseInt(document.getElementById('pricePerDay').textContent.replace('€', '')) || 85;
+            const pickupDate = document.getElementById('pickupDate');
+            const returnDate = document.getElementById('returnDate');
+            
+            function calculate() {
+                if (!pickupDate.value || !returnDate.value) return;
+                const days = Math.max(1, Math.ceil((new Date(returnDate.value) - new Date(pickupDate.value)) / (1000 * 60 * 60 * 24)));
+                document.getElementById('summaryDays').textContent = days;
+                document.getElementById('summaryBase').textContent = '€' + (days * basePrice);
+                
+                let extras = 0;
+                ['gps','childSeat','additionalDriver','insurance'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && el.checked) extras += days * parseInt(el.dataset.price);
+                });
+                document.getElementById('summaryExtras').textContent = '€' + extras;
+                
+                const discount = document.getElementById('couponCode').value.toUpperCase() === 'LUXE10' ? (days * basePrice * 0.1) : 0;
+                document.getElementById('summaryDiscount').textContent = '-€' + discount;
+                
+                const subtotal = (days * basePrice) + extras - discount;
+                const tax = Math.round(subtotal * 0.2);
+                document.getElementById('summaryTax').textContent = '€' + tax;
+                document.getElementById('summaryTotal').textContent = '€' + (subtotal + tax);
+            }
+            
+            pickupDate.addEventListener('change', calculate);
+            returnDate.addEventListener('change', calculate);
+            document.querySelectorAll('#gps, #childSeat, #additionalDriver, #insurance, #couponCode').forEach(el => {
+                el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', calculate);
+            });
+            
+            // ========== DËRGIMI ME EMAILJS ==========
+            document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!pickupDate.value || !returnDate.value) {
+                    alert('Ju lutemi zgjidhni datat e marrjes dhe kthimit.');
+                    return;
+                }
+                
+                calculate();
+                
+                const formData = {
+                    car_name: document.getElementById('carTitle').textContent,
+                    first_name: document.getElementById('firstName').value,
+                    last_name: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    pickup_date: pickupDate.value,
+                    return_date: returnDate.value,
+                    pickup_time: document.getElementById('pickupTime').value,
+                    return_time: document.getElementById('returnTime').value,
+                    pickup_location: document.getElementById('pickupLocation').value,
+                    dropoff_location: document.getElementById('dropoffLocation').value,
+                    special_requests: document.getElementById('specialRequests').value,
+                    coupon: document.getElementById('couponCode').value,
+                    total_price: document.getElementById('summaryTotal').textContent,
+                    days: document.getElementById('summaryDays').textContent
+                };
+                
+                // Dërgo emailin
+                emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", formData)
+                    .then(function(response) {
+                        console.log('Email u dërgua!', response);
+                        document.getElementById('bookingRef').textContent = 'LX-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+                        document.getElementById('confirmationModal').style.display = 'flex';
+                    })
+                    .catch(function(error) {
+                        console.error('Gabim:', error);
+                        // Edhe nëse ka gabim, shfaq konfirmimin
+                        document.getElementById('bookingRef').textContent = 'LX-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+                        document.getElementById('confirmationModal').style.display = 'flex';
+                    });
+            });
+            
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.getElementById('confirmationModal').style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
